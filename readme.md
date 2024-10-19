@@ -28,13 +28,14 @@ Installez les dépendances suivantes sur votre machine :
 
 2. **Créer un environnement virtuel**:
     ```bash
-    python3 -m venv venv
+    python -m venv venv
     ```
+    Un dossier `venv` sera créé dans votre projet.
 
 3. **Activer l'environnement virtuel**:
     - Sur macOS/Linux :
       ```bash
-      source venv/bin/activate
+      source venv/Scripts/activate
       ```
     - Sur Windows :
       ```bash
