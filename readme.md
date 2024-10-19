@@ -72,7 +72,7 @@ password-manager/
 ├── venv/              # Virtual environment
 ├── app.py             # Main application file
 ├── requirements.txt   # Python dependencies
-└── README.md          # Project documentation (this file)
+└── README.md          # Project documentation
 ```
 
 ## Contributeur
