@@ -5,16 +5,16 @@ Bienvenue sur le projet **Password Manager 🔏**
 ## Tables des matières
 - [Mise en place](#mise-en-place)
 - [Installation](#installation)
-- [Lancer l'application](#lancer-l'application)
-- [Structure du projet](#project-structure)
-- [Contributing](#contributing)
+- [Lancer l'application](#lancer-lapplication)
+- [Structure du projet](#structure-du-projet)
+- [Contributeur](#contributeur)
 
-## #mise-en-place
+## Mise en place
 Suivre les instructions suivantes pour récupérer et lancer le projet sur votre machine 
 
-### Prerequis
+### Prérequis
 
-Installez les dépendances suivantes sur votre machine
+Installez les dépendances suivantes sur votre machine :
 - [Python 3.x](https://www.python.org/downloads/)
 - [pip](https://pip.pypa.io/en/stable/installation/) 
 
@@ -26,40 +26,40 @@ Installez les dépendances suivantes sur votre machine
     cd password-manager
     ```
 
-2. **Créer un environnment vituel**:
+2. **Créer un environnement virtuel**:
     ```bash
     python3 -m venv venv
     ```
 
 3. **Activer l'environnement virtuel**:
-    - On macOS/Linux:
+    - Sur macOS/Linux :
       ```bash
       source venv/bin/activate
       ```
-    - On Windows:
+    - Sur Windows :
       ```bash
       venv\Scripts\activate
       ```
 
-4. **Installer les dépendances**:
+4. **Installer les dépendances** :
     ```bash
     pip install -r requirements.txt
     ```
 
 ### Lancer l'application
-une fois les dépendances installées, lancez l'application : 
+Une fois les dépendances installées, lancez l'application :
 
-1. **Executer la commande**:
+1. **Exécuter la commande** :
     ```bash
     python app.py
     ```
 
-2. **Ouvrez votre navigateur** et se rendre à `http://127.0.0.1:5000/`.
+2. **Ouvrez votre navigateur** et rendez-vous à `http://127.0.0.1:5000/`.
 
-Félicitation ! 🎉 Le projet est lancé sur votre machine ! .
+Félicitations ! 🎉 Le projet est lancé sur votre machine ! 
 
-### Project Structure
-Ci dessus, vous trouverez une structure du projet.
+### Structure du projet
+Ci-dessous, vous trouverez la structure du projet.
 
 ```bash
 password-manager/
@@ -73,3 +73,10 @@ password-manager/
 ├── app.py             # Main application file
 ├── requirements.txt   # Python dependencies
 └── README.md          # Project documentation (this file)
+```
+
+## Contributeur
+- [Mathieu Baille](https://github.com/Picsor)
+- [Alexis Flan](https://github.com/GaRmirW-oR)
+- [Quentin Marty](https://github.com/Propleek)
+- [Enzo Volpato](https://github.com/vryc9)
