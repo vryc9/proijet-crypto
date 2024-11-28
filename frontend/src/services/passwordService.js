@@ -2,15 +2,12 @@
 class PasswordService {
     endpoint = "/password";
 
-    savePasswordToVault(callback) {
+    static savePasswordToVault(callback) {
         let xhr = new XMLHttpRequest();
-
-        let body = {
-
-        };
-
+        let body = JSON.stringify(callback)
         xhr.addEventListener('load', callback);
-        xhr.open('POST', 'https://localhost:80/vault/save');
+        xhr.open('POST', 'http://127.0.0.1:5000/vaults');
+        xhr.setRequestHeader('Content-Type', 'application/json');
         xhr.send(body);
     }
 }
