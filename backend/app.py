@@ -3,6 +3,7 @@ import pymysql
 from extensions import db
 from dao.dao_user import UserDAO
 from dotenv import load_dotenv
+from dao.dao_vault import VaultDao
 import os
 
 pymysql.install_as_MySQLdb()
@@ -33,6 +34,16 @@ def create_user():
 def get_all_users():
     users = UserDAO.get_all_users()
     return jsonify([{'id': user.id, 'username': user.username} for user in users])
+
+
+@app.route('/vaults', methods=['POST'])
+def create_vault():
+    data = request.get_json()
+    vault = VaultDao.add_vault(data['password'], data['website'], data['username'])
+    return jsonify({'id': vault.id, 'password': vault.password, 'website': vault.website, 'username': vault.username}), 201
+
+
+
 
 if __name__ == "__main__":
     with app.app_context():
