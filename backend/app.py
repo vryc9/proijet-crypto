@@ -5,6 +5,7 @@ from dao.dao_user import UserDAO
 from dotenv import load_dotenv
 from dao.dao_vault import VaultDao
 import os
+from flask_cors import CORS
 
 pymysql.install_as_MySQLdb()
 load_dotenv()
@@ -15,6 +16,7 @@ DB_HOST = os.getenv('DB_HOST')
 DB_NAME = os.getenv('DB_NAME')
 
 app = Flask(__name__)
+CORS(app)
 app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}/{DB_NAME}'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
@@ -36,7 +38,7 @@ def get_all_users():
     return jsonify([{'id': user.id, 'username': user.username} for user in users])
 
 
-@app.route('/vaults', methods=['POST'])
+@app.route('/vaults', methods=['POST'],)
 def create_vault():
     data = request.get_json()
     vault = VaultDao.add_vault(data['password'], data['website'], data['username'])
