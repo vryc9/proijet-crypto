@@ -52,7 +52,7 @@ M8LnKm9Rq1KUkvqMFAWN88wSs8l0bgm1aydcONM3FA==\
       <NavBar></NavBar>
       <div className="body">
         <div className="content">
-          <form action="#" className="loginForm" method="POST">
+          <form action="/passwords" className="loginForm" method="POST">
             <h1><center>Login Here</center></h1>
             <div className="inputs">
               <div className="input">
