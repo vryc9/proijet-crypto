@@ -4,6 +4,24 @@ import "./addPassword.scss";
 import { useState } from "react";
 
 function AddPassword() {
+
+    const publicKeyCasting =
+  "-----BEGIN PUBLIC KEY-----\
+MIGeMA0GCSqGSIb3DQEBAQUAA4GMADCBiAKBgGOFm4RnyM1fjwkN8uDImOppetjO\
+ah7z4xhM87kJrZiTi/DoJEFzQ3q1TnZwn/Qc5QKBxIDRPqxUkXjDJgH/tazjPHHn\
+kEdtDI++SvqPGX3iqUe85LnCXvCr6CNygxPcm8558pQQY1KVAUtslocDkMBHCWIX\
+gC10t+i+5s/wHOPBAgMBAAE=\
+-----END PUBLIC KEY-----"
+
+
+  const encrypt = (message, publicKey) => {
+    const jsEncrypt = new JSEncrypt();
+    jsEncrypt.setPublicKey(publicKey);
+    return jsEncrypt.encrypt(message);
+  }
+
+  let result = encrypt("hello", publicKeyCasting)
+
   const [formData, setFormData] = useState({
     website: "",
     username: "",
@@ -20,8 +38,13 @@ function AddPassword() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
-    PasswordService.savePasswordToVault(formData)
+    let data = {
+        username: formData.username,
+        website: formData.website,
+        password: encrypt(formData.password, publicKeyCasting)
+    };
+    console.log(data);
+    PasswordService.savePasswordToVault(data);
     
   };
   return (
