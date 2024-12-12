@@ -1,7 +1,6 @@
 import NavBar from "../../components/navbar/NavBar";
 import "./addPassword.scss";
 import { useState } from "react";
-import forge from "node-forge";
 import PasswordService from "../../services/passwordService";
 
 function AddPassword() {
@@ -36,12 +35,6 @@ function AddPassword() {
       body: JSON.stringify(data),
     });
   };
-
-  const navigate = useNavigate()
-
-  const navigateToHome = () => {
-    navigate('/passwords')
-  }
 
   return (
     <div className="addPassword">
@@ -81,8 +74,6 @@ function AddPassword() {
             </div>
           </div>
           <button id="log-in-btn">Ajouter</button>
-
-          <button onClick={navigateToHome} >Blabla</button>
         </form>
       </div>
     </div>
