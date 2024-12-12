@@ -2,9 +2,11 @@ import NavBar from "../../components/navbar/NavBar";
 import "./addPassword.scss";
 import { useState } from "react";
 import PasswordService from "../../services/passwordService";
+import { Password } from "../../services/vault";
+import { useNavigate } from 'react-router-dom';
 
 function AddPassword() {
-
+  const navigate = useNavigate(); 
   const [formData, setFormData] = useState({
     website: "",
     username: "",
@@ -26,14 +28,9 @@ function AddPassword() {
       website: formData.website,
       password: PasswordService.encryptPassword(formData.password),
     };
-
-    const response = await fetch("http://127.0.0.1:5000/vaults", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
+    let pass = new Password(data.website, data.password, data.username);
+    console.log(pass);
+    PasswordService.addPasswordToVault(pass);
   };
 
   return (

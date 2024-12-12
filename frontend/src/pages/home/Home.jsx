@@ -54,7 +54,15 @@ M8LnKm9Rq1KUkvqMFAWN88wSs8l0bgm1aydcONM3FA==\
   const vaultEmpty = PasswordService.checkVault();
 
   const navigateToHome = () => {
-    navigate('/addpassword')
+    navigate('/createvault')
+  }
+
+  const navigateToPasswords = () => {
+    navigate('/passwords')
+  }
+
+  const resetPassword = () => {
+    PasswordService.resetVault();
   }
   return (
     <div id="home">
@@ -68,6 +76,16 @@ M8LnKm9Rq1KUkvqMFAWN88wSs8l0bgm1aydcONM3FA==\
               <div className="buttons">
                 <button className="btn" id='log-in-btn' onClick={navigateToHome}>New vault</button>
                 <button className="btn" id="import-btn">Import</button>
+              </div>
+            </form>
+          }
+          {
+            !vaultEmpty && 
+            <form action="/passwords" className="loginForm" method="POST">
+              <h1><center>Access your vault</center></h1>
+              <div className="buttons">
+                <button className="btn" id='log-in-btn' onClick={navigateToPasswords}>Here</button>
+                <button className="btn" id='log-in-btn' onClick={resetPassword}>Reset Vault</button>
               </div>
             </form>
           }

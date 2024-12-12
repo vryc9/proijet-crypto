@@ -1,8 +1,14 @@
 import NavBar from '../../components/navbar/NavBar'
 import './password.scss'
-
+import { useNavigate } from 'react-router-dom';
 
 function Password(){
+    const navigate = useNavigate(); 
+    const navigateCreate = () => {
+        console.log("triggered");
+        navigate('/addpassword')
+    }
+
     let passwords = [{  username:"oui",
                         password:"non",
                         site:"tg.com"
@@ -39,7 +45,7 @@ function Password(){
                         </tbody>
                     </table>
                 </div>
-                <a href="">Ajouter mot de passe</a>
+                <a href="" onClick={navigateCreate}>Ajouter mot de passe</a>
             </div>
             
         </div>
