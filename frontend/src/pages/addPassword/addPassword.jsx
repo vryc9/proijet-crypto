@@ -37,6 +37,12 @@ function AddPassword() {
     });
   };
 
+  const navigate = useNavigate()
+
+  const navigateToHome = () => {
+    navigate('/passwords')
+  }
+
   return (
     <div className="addPassword">
       <NavBar></NavBar>
@@ -75,6 +81,8 @@ function AddPassword() {
             </div>
           </div>
           <button id="log-in-btn">Ajouter</button>
+
+          <button onClick={navigateToHome} >Blabla</button>
         </form>
       </div>
     </div>
