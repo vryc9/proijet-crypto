@@ -1,7 +1,10 @@
 // import logo from '../../assets/logo.svg'
 // import { useEffect } from 'react';
+import { useState } from 'react';
 import NavBar from '../../components/navbar/NavBar';
 import './home.scss';
+import PasswordService from '../../services/passwordService';
+import { useNavigate } from 'react-router-dom';
 
 function Home() {
 
@@ -46,26 +49,28 @@ M8LnKm9Rq1KUkvqMFAWN88wSs8l0bgm1aydcONM3FA==\
 
   let result = encrypt("hello", publicKeyCasting)
   // console.log(result);
+  const navigate = useNavigate();
 
+  const vaultEmpty = PasswordService.checkVault();
+
+  const navigateToHome = () => {
+    navigate('/addpassword')
+  }
   return (
     <div id="home">
       <NavBar></NavBar>
       <div className="body">
         <div className="content">
-          <form action="/passwords" className="loginForm" method="POST">
-            <h1><center>Login Here</center></h1>
-            <div className="inputs">
-              <div className="input">
-                <label htmlFor="username">Username</label>
-                <input type="text" name='username'/>
+          {
+            vaultEmpty && 
+            <form action="/passwords" className="loginForm" method="POST">
+              <h1><center>You don't have a vault yet</center></h1>
+              <div className="buttons">
+                <button className="btn" id='log-in-btn' onClick={navigateToHome}>New vault</button>
+                <button className="btn" id="import-btn">Import</button>
               </div>
-              <div className="input">
-                <label htmlFor="password">Password</label>
-                <input type="password" name='password'/>
-              </div>
-            </div>
-            <button id='log-in-btn'>Log In</button>
-          </form>
+            </form>
+          }
         </div>
       </div>
     </div>

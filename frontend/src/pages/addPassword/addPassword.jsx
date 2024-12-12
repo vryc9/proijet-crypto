@@ -2,23 +2,9 @@ import NavBar from "../../components/navbar/NavBar";
 import "./addPassword.scss";
 import { useState } from "react";
 import forge from "node-forge";
+import PasswordService from "../../services/passwordService";
 
 function AddPassword() {
-  const publicKeyCasting =
-    "-----BEGIN PUBLIC KEY-----\
-MIGeMA0GCSqGSIb3DQEBAQUAA4GMADCBiAKBgGOFm4RnyM1fjwkN8uDImOppetjO\
-ah7z4xhM87kJrZiTi/DoJEFzQ3q1TnZwn/Qc5QKBxIDRPqxUkXjDJgH/tazjPHHn\
-kEdtDI++SvqPGX3iqUe85LnCXvCr6CNygxPcm8558pQQY1KVAUtslocDkMBHCWIX\
-gC10t+i+5s/wHOPBAgMBAAE=\
------END PUBLIC KEY-----";
-
-  const encryptPassword = (password) => {
-    const publicKey = forge.pki.publicKeyFromPem(publicKeyCasting);
-    const encrypted = publicKey.encrypt(password, "RSA-OAEP", {
-      md: forge.md.sha256.create(),
-    });
-    return forge.util.encode64(encrypted);
-  };
 
   const [formData, setFormData] = useState({
     website: "",
@@ -39,7 +25,7 @@ gC10t+i+5s/wHOPBAgMBAAE=\
     let data = {
       username: formData.username,
       website: formData.website,
-      password: encryptPassword(formData.password),
+      password: PasswordService.encryptPassword(formData.password),
     };
 
     const response = await fetch("http://127.0.0.1:5000/vaults", {
