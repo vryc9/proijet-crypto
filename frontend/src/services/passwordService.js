@@ -1,5 +1,6 @@
 import { Vault, Password } from "./vault";
-const bcrypt = require("bcrypt");
+import bcrypt from 'bcryptjs';
+
 import forge from "node-forge";
 
 class PasswordService {
