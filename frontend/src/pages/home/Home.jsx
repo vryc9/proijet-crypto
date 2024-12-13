@@ -81,7 +81,7 @@ M8LnKm9Rq1KUkvqMFAWN88wSs8l0bgm1aydcONM3FA==\
           }
           {
             !vaultEmpty && 
-            <form action="/passwords" className="loginForm" method="POST">
+            <form action="#" className="loginForm" method="POST">
               <h1><center>Access your vault</center></h1>
               <div className="buttons">
                 <button className="btn" id='log-in-btn' onClick={navigateToPasswords}>Here</button>

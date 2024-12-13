@@ -23,44 +23,65 @@ class PasswordService {
     xhr.send(body);
   }
 
-  static checkVault() {
-    return localStorage.getItem("vault") == null;
-  }
-
-  static getPasswords() {
-    vault = JSON.parse(localStorage.getItem("vault"));
-    console.log(vault);
-    return vault.passwords;
-  }
-
-  static addPasswordToVault(password) {
-    let passwords;
-    if (!this.checkVault) {
-      return false;
+    static checkVault() {
+        return localStorage.getItem("vault") == null;
     }
-    passwords = JSON.parse(localStorage.getItem("vault"));
-    passwords.passwords.push(password);
-    jsonPasswords = JSON.stringify(passwords);
-    localStorage.setItem("vault", jsonPasswords);
-    return true;
-  }
 
-  static createVault(password) {
-    if (this.checkVault) {
-      return false;
+    static addPasswordToVault(password) {
+        let passwords;
+        if (this.checkVault()) {
+            return false;
+        }  
+        passwords = Vault.fromJSON(JSON.parse(localStorage.getItem("vault")));
+        passwords.addPassword(password); 
+        let jsonPasswords = JSON.stringify(passwords);
+        localStorage.setItem("vault", jsonPasswords);
+        return true;
     }
-    let encryptedPassword = bcrypt.hash(password);
-    let vault = new Vault(encryptedPassword);
-    localStorage.setItem("vault", JSON.stringify(vault));
-  }
 
-  static encryptPassword(password) {
-    const publicKey = forge.pki.publicKeyFromPem(this.publicKeyCasting);
-    const encrypted = publicKey.encrypt(password, "RSA-OAEP", {
-      md: forge.md.sha256.create(),
-    });
-    return forge.util.encode64(encrypted);
-  }
+    static getPasswords(){
+        if (this.checkVault()) {
+            return [];
+        }  
+        let passwords = Vault.fromJSON(JSON.parse(localStorage.getItem("vault")));
+        return passwords.passwords;
+    }
+
+    static resetVault(){
+        localStorage.clear();
+    }
+
+    static async createVault(password) {
+
+        if (!this.checkVault()) {
+            console.log("you already have a vault !");
+            return false;
+        }
+        let encryptedPassword = await bcrypt.hash(password, 10);
+        console.log(encryptedPassword);
+        let vault = new Vault(encryptedPassword);
+        localStorage.setItem("vault", JSON.stringify(vault));
+        console.log("set to localstorage");
+    }
+
+    static encryptPassword(password) {
+        console.log(this.publicKeyCasting);
+        const publicKey = forge.pki.publicKeyFromPem(this.publicKeyCasting);
+        const encrypted = publicKey.encrypt(password, "RSA-OAEP", {
+        md: forge.md.sha256.create(),
+        });
+        return forge.util.encode64(encrypted);
+    }
+
+    static removePassword(password){
+        console.log("removing");
+        if (this.checkVault()) {
+            return false;
+        }  
+        let vault = Vault.fromJSON(JSON.parse(localStorage.getItem("vault")));
+        vault.removePassword(password);
+        localStorage.setItem("vault", JSON.stringify(vault));
+    }
 }
 
 export default PasswordService;
