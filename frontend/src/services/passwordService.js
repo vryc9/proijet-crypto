@@ -6,7 +6,7 @@ import forge from "node-forge";
 class PasswordService {
   endpoint = "/password";
 
-  publicKeyCasting =
+  static publicKeyCasting =
     "-----BEGIN PUBLIC KEY-----\
     MIGeMA0GCSqGSIb3DQEBAQUAA4GMADCBiAKBgGOFm4RnyM1fjwkN8uDImOppetjO\
     ah7z4xhM87kJrZiTi/DoJEFzQ3q1TnZwn/Qc5QKBxIDRPqxUkXjDJgH/tazjPHHn\

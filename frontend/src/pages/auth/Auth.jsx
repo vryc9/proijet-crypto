@@ -14,7 +14,7 @@ const Auth = () => {
   return (
     <div className="auth-container">
       <form className="auth-form" onSubmit={handleSubmit}>
-        <h2>Connexion à votre compte</h2>
+        <h2>Access your Vault</h2>
         <input
           type="password"
           name="password"

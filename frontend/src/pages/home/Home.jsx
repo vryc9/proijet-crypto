@@ -5,7 +5,7 @@ import NavBar from '../../components/navbar/NavBar';
 import './home.scss';
 import PasswordService from '../../services/passwordService';
 import { useNavigate } from 'react-router-dom';
-
+import Auth from '../auth/Auth';
 function Home() {
 
   const publicKeyCasting =
@@ -81,13 +81,12 @@ M8LnKm9Rq1KUkvqMFAWN88wSs8l0bgm1aydcONM3FA==\
           }
           {
             !vaultEmpty && 
-            <form action="#" className="loginForm" method="POST">
-              <h1><center>Access your vault</center></h1>
+            <div className="loginForm">
+              <Auth></Auth>
               <div className="buttons">
-                <button className="btn" id='log-in-btn' onClick={navigateToPasswords}>Here</button>
                 <button className="btn" id='log-in-btn' onClick={resetPassword}>Reset Vault</button>
               </div>
-            </form>
+            </div>
           }
         </div>
       </div>
