@@ -3,7 +3,6 @@ import pymysql
 from extensions import db
 from dao.dao_user import UserDAO
 from dotenv import load_dotenv
-from dao.dao_vault import VaultDao
 import os
 from flask_cors import CORS
 import rsa
@@ -15,6 +14,8 @@ from cryptography.hazmat.primitives.asymmetric import padding
 from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.primitives.serialization import load_pem_private_key
 from cryptography.hazmat.backends import default_backend
+import bcrypt
+
 
 pymysql.install_as_MySQLdb()
 load_dotenv()
@@ -69,38 +70,28 @@ def decrypt_password(encrypted_password):
     return decrypted_password.decode()
 
 
-# Route ici : 
-
-#TODO : Supprimer les routes ce sont des exemples
-@app.route('/users', methods=['POST'])
-def create_user():
-    data = request.get_json()
-    user = UserDAO.add_user(data['username'], data['password'])
-    return jsonify({'id': user.id, 'username': user.username}), 201
-
-#TODO : Same
-@app.route('/users', methods=['GET'])
-def get_all_users():
-    users = UserDAO.get_all_users()
-    return jsonify([{'id': user.id, 'username': user.username} for user in users])
-
+def verify_password(plain_password: str, hashed_password: str) -> bool:
+    return bcrypt.checkpw(plain_password.encode(), hashed_password.encode())
+    
 
 @app.route('/vaults', methods=['POST'])
 def create_vault():
-    
+
     data = request.get_json()
     decrypted_password = decrypt_password(data['password'])
-    vault = VaultDao.add_vault(data['password'], data['website'], data['username'])
+    print(decrypted_password)
     
     return jsonify({
-        'id': vault.id,
-        'password': decrypted_password,
-        'website': vault.website,
-        'username': vault.username
+        data
     }), 201
-
-
-
+    
+@app.route('/auth', methods=['POST'])
+def connexion():
+    data = request.json
+    clear_password = data.get("clear_password")
+    hashed_password = data.get("hash_password")
+    is_valid = verify_password(clear_password, hashed_password)
+    return jsonify({"is_valid": is_valid})
 
 if __name__ == "__main__":
     with app.app_context():
