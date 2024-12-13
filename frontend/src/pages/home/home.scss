@@ -4,31 +4,31 @@
     justify-content: center;
     height: 500px;
     width: 100vw;
-    
+
     .content {
       display: flex;
       flex-direction: column;
       margin-top: 100px;
       width: 70%;
       align-items: center;
-      .loginForm{
+      .loginForm {
         width: 70%;
         display: flex;
         flex-direction: column;
         align-items: center;
-        .inputs{
+        .inputs {
           display: flex;
           flex-direction: column;
           width: 100%;
           font-size: 25px;
           font-weight: bold;
 
-          .input{
+          .input {
             display: flex;
             flex-direction: column;
             margin-bottom: 5px;
 
-            input{
+            input {
               background: #fefefe;
               border-radius: 4px;
               height: fit-content;
@@ -37,14 +37,39 @@
               font-family: system-ui;
             }
           }
-
         }
-        .btn{
+        .btn {
           margin-top: 25px;
           font-size: 20px;
         }
+        .input-file {
+          position: relative;
+          display: inline-block;
+
+          input[type="file"] {
+            display: none;
+          }
+
+          label.btn {
+            display: inline-block;
+            cursor: pointer;
+            background: inherit;
+            color: #fff;
+            padding: 10px 20px;
+            background-color: #1a1a1a;
+            border-radius: 4px;
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+            transition: background 0.3s ease, border 0.3s ease; // Transition pour bordure et fond
+            border: 2px solid transparent; // Bordure par défaut invisible
+
+            &:hover {
+              border: 2px solid #646cff; // Bordure visible au survol
+            }
+          }
+        }
       }
-      
     }
   }
 }

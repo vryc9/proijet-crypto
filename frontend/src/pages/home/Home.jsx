@@ -1,23 +1,22 @@
 // import logo from '../../assets/logo.svg'
 // import { useEffect } from 'react';
-import { useState } from 'react';
-import NavBar from '../../components/navbar/NavBar';
-import './home.scss';
-import PasswordService from '../../services/passwordService';
-import { useNavigate } from 'react-router-dom';
-import Auth from '../auth/Auth';
+import { useEffect, useState } from "react";
+import NavBar from "../../components/navbar/NavBar";
+import "./home.scss";
+import PasswordService from "../../services/passwordService";
+import { useNavigate } from "react-router-dom";
+import Auth from "../auth/Auth";
 function Home() {
-
   const publicKeyCasting =
-  "-----BEGIN PUBLIC KEY-----\
+    "-----BEGIN PUBLIC KEY-----\
 MIGeMA0GCSqGSIb3DQEBAQUAA4GMADCBiAKBgGOFm4RnyM1fjwkN8uDImOppetjO\
 ah7z4xhM87kJrZiTi/DoJEFzQ3q1TnZwn/Qc5QKBxIDRPqxUkXjDJgH/tazjPHHn\
 kEdtDI++SvqPGX3iqUe85LnCXvCr6CNygxPcm8558pQQY1KVAUtslocDkMBHCWIX\
 gC10t+i+5s/wHOPBAgMBAAE=\
------END PUBLIC KEY-----"
+-----END PUBLIC KEY-----";
 
   const privateKeyCasting =
-  "-----BEGIN RSA PRIVATE KEY-----\
+    "-----BEGIN RSA PRIVATE KEY-----\
 MIICWwIBAAKBgGOFm4RnyM1fjwkN8uDImOppetjOah7z4xhM87kJrZiTi/DoJEFz\
 Q3q1TnZwn/Qc5QKBxIDRPqxUkXjDJgH/tazjPHHnkEdtDI++SvqPGX3iqUe85LnC\
 XvCr6CNygxPcm8558pQQY1KVAUtslocDkMBHCWIXgC10t+i+5s/wHOPBAgMBAAEC\
@@ -31,67 +30,96 @@ aRGaBoa6PQIv7B51tJXsrbBoOMOskKBCe1+E3WURTf3jgzClqd1Zl5gJAkBKh+En\
 H4lQKCAZEgoEOUZEU4paOZx71LfS64iJqO8dMtmahaANVTsRSWTLoEpHqa/T9e43\
 30OePlqpr/j9+nCxAkEAlLsvN0Mk5pbcMPRe1WOpG84TS3QMgH38mFskFlk7zQBc\
 M8LnKm9Rq1KUkvqMFAWN88wSs8l0bgm1aydcONM3FA==\
------END RSA PRIVATE KEY-----"
+-----END RSA PRIVATE KEY-----";
 
-  const encrypt = (message, publicKey) => {
-    const jsEncrypt = new JSEncrypt();
-    jsEncrypt.setPublicKey(publicKey);
-
-    jsEncrypt.setPrivateKey(privateKeyCasting);
-    let encrypted = jsEncrypt.encrypt(message);
-    console.log("encr", encrypted)
-    let decrypted = jsEncrypt.decrypt(encrypted);
-    console.log("DECR", decrypted);
-    
-    // console.log(message, publicKey)
-    return jsEncrypt.encrypt(message);
-  }
-
-  let result = encrypt("hello", publicKeyCasting)
-  // console.log(result);
   const navigate = useNavigate();
-
-  const vaultEmpty = PasswordService.checkVault();
-
+  const [isExistVault, setIsExistVault] = useState(null);
   const navigateToHome = () => {
-    navigate('/createvault')
-  }
+    navigate("/createvault");
+  };
+
+  useEffect(() => {
+    setIsExistVault(!PasswordService.checkVault());
+  }, []);
 
   const navigateToPasswords = () => {
-    navigate('/passwords')
-  }
+    navigate("/passwords");
+  };
 
   const resetPassword = () => {
     PasswordService.resetVault();
-  }
+    setIsExistVault(false);
+  };
+
+  const handleImportFileChange = async (e) => {
+    const [file] = e.target.files;
+    if (!file) return;
+
+    try {
+      const content = await getContentFile(file);
+      PasswordService.setVault(JSON.parse(content));
+
+      setIsExistVault(true);
+    } catch (error) {
+      console.error("Error importing vault:", error);
+    }
+  };
+
+  const getContentFile = (file) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = (err) => reject(err);
+      reader.readAsText(file);
+    });
+  };
+
   return (
     <div id="home">
-      <NavBar></NavBar>
+      <NavBar />
       <div className="body">
         <div className="content">
-          {
-            vaultEmpty && 
+          {!isExistVault && (
             <form action="/passwords" className="loginForm" method="POST">
-              <h1><center>You don't have a vault yet</center></h1>
+              <h1>
+                <center>You don't have a vault yet</center>
+              </h1>
               <div className="buttons">
-                <button className="btn" id='log-in-btn' onClick={navigateToHome}>New vault</button>
-                <button className="btn" id="import-btn">Import</button>
+                <button
+                  className="btn"
+                  id="log-in-btn"
+                  onClick={navigateToHome}
+                >
+                  New vault
+                </button>
+                <div className="input-file">
+                  <input
+                    type="file"
+                    name="file"
+                    onChange={handleImportFileChange}
+                    id="import"
+                  />
+                  <label htmlFor="import" className="btn">
+                    Import File
+                  </label>
+                </div>
               </div>
             </form>
-          }
-          {
-            !vaultEmpty && 
+          )}
+          {isExistVault && (
             <div className="loginForm">
-              <Auth></Auth>
+              <Auth />
               <div className="buttons">
-                <button className="btn" id='log-in-btn' onClick={resetPassword}>Reset Vault</button>
+                <button className="btn" id="log-in-btn" onClick={resetPassword}>
+                  Reset Vault
+                </button>
               </div>
             </div>
-          }
+          )}
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default Home
+export default Home;

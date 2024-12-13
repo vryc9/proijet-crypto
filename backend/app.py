@@ -35,7 +35,6 @@ private_key = load_pem_private_key(
     password=None, 
     backend=default_backend()
 )
-
 app = Flask(__name__)
 CORS(app)
 
@@ -55,16 +54,18 @@ def decrypt_password(encrypted_password):
 def verify_password(plain_password: str, hashed_password: str) -> bool:
     return bcrypt.checkpw(plain_password.encode(), hashed_password.encode())
     
-@app.route('/vaults', methods=['POST'])
+@app.route('/decrypt', methods=['POST'])
 def create_vault():
-
     data = request.get_json()
-    decrypted_password = decrypt_password(data['password'])
+    decrypted_password = decrypt_password(data.get("password"))
     print(decrypted_password)
     
     return jsonify({
-        data
-    }), 201
+    "id": data.get("id"),
+    "password": decrypted_password,
+    "username": data.get("username"),
+    "website": data.get("website")
+}), 201
     
 @app.route('/auth', methods=['POST'])
 def connexion():
