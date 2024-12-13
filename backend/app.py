@@ -1,8 +1,4 @@
 from flask import Flask, jsonify, request
-import pymysql
-from extensions import db
-from dao.dao_user import UserDAO
-from dotenv import load_dotenv
 import os
 from flask_cors import CORS
 import rsa
@@ -15,15 +11,6 @@ from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.primitives.serialization import load_pem_private_key
 from cryptography.hazmat.backends import default_backend
 import bcrypt
-
-
-pymysql.install_as_MySQLdb()
-load_dotenv()
-
-DB_USER = os.getenv('DB_USER')
-DB_PASSWORD = os.getenv('DB_PASSWORD')
-DB_HOST = os.getenv('DB_HOST')
-DB_NAME = os.getenv('DB_NAME')
 
 private_key_pem = """
 -----BEGIN RSA PRIVATE KEY-----
@@ -49,13 +36,8 @@ private_key = load_pem_private_key(
     backend=default_backend()
 )
 
-
 app = Flask(__name__)
 CORS(app)
-app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}/{DB_NAME}'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
-db.init_app(app)
 
 def decrypt_password(encrypted_password):
     encrypted_data = base64.b64decode(encrypted_password)
@@ -73,7 +55,6 @@ def decrypt_password(encrypted_password):
 def verify_password(plain_password: str, hashed_password: str) -> bool:
     return bcrypt.checkpw(plain_password.encode(), hashed_password.encode())
     
-
 @app.route('/vaults', methods=['POST'])
 def create_vault():
 
@@ -95,5 +76,4 @@ def connexion():
 
 if __name__ == "__main__":
     with app.app_context():
-        db.create_all()
-    app.run(debug=True)
+        app.run(debug=True)
