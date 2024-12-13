@@ -10,6 +10,7 @@ import Password from './pages/passwordList/password'
 import AddPassword from './pages/addPassword/addPassword';
 import CreateVault from './pages/createVault/createVault';
 import Auth from './pages/auth/Auth';
+import EditPassword from './pages/editPassword/editPassword';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -19,6 +20,7 @@ const router = createBrowserRouter(
       <Route path='/addpassword' element={ <AddPassword />}/>
       <Route path='/createvault' element={ <CreateVault />}/>
       <Route path='/auth' element={ <Auth />}/>
+      <Route path='/edit/:id' element={ < EditPassword/>}/>
     </>
   )
 );

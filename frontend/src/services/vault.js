@@ -12,7 +12,6 @@ export class Vault{
     }
 
     removePassword(password){
-        console.log("removing password");
         let pos = 0;
         for(let pass of this.passwords){
             console.log(pass)
@@ -24,6 +23,29 @@ export class Vault{
             pos++;
         }
         return false;
+    }
+
+    editPassword(password){
+        let pos = 0;
+        for(let pass of this.passwords){
+            if(pass.id == password.id) {
+                this.passwords[pos] = password;
+                return true;
+            }
+            pos++;
+        }
+        return false;
+    }
+
+    getPasswordById(id){
+        let pos = 0;
+        for(let pass of this.passwords){
+            if(pass.id == id) {
+                return pass;
+            }
+            pos++;
+        }
+        return null;
     }
     static fromJSON(data) {
         const vault = new Vault(data.password);

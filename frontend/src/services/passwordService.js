@@ -106,6 +106,20 @@ class PasswordService {
     link.click();
     URL.revokeObjectURL(url);
   }
+
+  static editPassword(password){
+    if (this.checkVault()) {
+        return false;
+    }  
+    let vault = Vault.fromJSON(JSON.parse(localStorage.getItem("vault")));
+    vault.editPassword(password);
+    localStorage.setItem("vault", JSON.stringify(vault));
+  }
+
+  static getPasswordById(id){
+    let vault = Vault.fromJSON(JSON.parse(localStorage.getItem("vault")));
+    return vault.getPasswordById(id);
+  }
 }
 
 export default PasswordService;

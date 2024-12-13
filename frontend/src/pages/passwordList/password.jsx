@@ -19,6 +19,10 @@ function Password() {
     window.location.reload();
   };
 
+  const editPassword = (password) => (e) => {
+    e.preventDefault();
+    navigate('/edit/'+password.id);
+}
   const downloadPasswordFromVault = (e) => {
     e.preventDefault();
     PasswordService.downloadVault();
@@ -94,7 +98,7 @@ function Password() {
                     </button>
                   </td>
                   <td>
-                    <button onClick={removePassword(password)}>Modifier</button>
+                    <button onClick={editPassword(password)}>Modifier</button>
                   </td>
                 </tr>
               ))}
