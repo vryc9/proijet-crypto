@@ -1,61 +1,58 @@
 .auth-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: 'Arial', sans-serif;
-    width: 100vw;
-    .auth-form {
-      background-color: #fff;
-      padding: 2rem;
-      border-radius: 8px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Arial", sans-serif;
+  width: 100vw;
+  .auth-form {
+    background-color: #1a1a1a;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+
+    h2 {
+      margin-bottom: 1.5rem;
+      font-size: 1.5rem;
+      color: white;
+    }
+
+    input {
       width: 100%;
-      max-width: 400px;
-      text-align: center;
-    
-      h2 {
-        margin-bottom: 1.5rem;
-        font-size: 1.5rem;
-        color: #333;
+      padding: 0.75rem;
+      margin-bottom: 1rem;
+      border-radius: 4px;
+      font-size: 1rem;
+      transition: border-color 0.3s;
+      color: #333;
+      border: 1px solid #646cff;
+    }
+
+    button {
+      color: white;
+      font-size: 1rem;
+      padding: 0.75rem;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: 0.3s;
+
+      &:hover {
+        border : 1px solid #646cff;
       }
-    
-      input {
-        width: 100%;
-        padding: 0.75rem;
-        margin-bottom: 1rem;
-        border: 1px solid #ddd;
-        border-radius: 4px;
-        font-size: 1rem;
-        transition: border-color 0.3s;
-        color: #333;
-      }
-    
-      button {
-        background-color: #6e8efb;
-        color: white;
-        font-size: 1rem;
-        padding: 0.75rem;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        transition: background-color 0.3s;
-    
-        &:hover {
-          background-color: #5a7ad1;
-        }
-    
-        &:disabled {
-          background-color: #b0c7f3;
-          cursor: not-allowed;
-        }
-      }
-    
-      p {
-        margin-top: 1rem;
-        color: red;
-        font-size: 0.875rem;
+
+      &:disabled {
+        background-color: #b0c7f3;
+        cursor: not-allowed;
       }
     }
+
+    p {
+      margin-top: 1rem;
+      color: red;
+      font-size: 0.875rem;
+    }
   }
-  
-  
+}

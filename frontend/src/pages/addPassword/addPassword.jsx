@@ -3,10 +3,10 @@ import "./addPassword.scss";
 import { useState } from "react";
 import PasswordService from "../../services/passwordService";
 import { Password } from "../../services/vault";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 function AddPassword() {
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     website: "",
     username: "",
@@ -30,12 +30,13 @@ function AddPassword() {
     };
     let pass = new Password(data.website, data.password, data.username);
     PasswordService.addPasswordToVault(pass);
+    navigate("/passwords");
   };
 
   useEffect(() => {
-        if(!sessionStorage.getItem('loggedIn')){
-          navigate("/");
-        }
+    if (!sessionStorage.getItem("loggedIn")) {
+      navigate("/");
+    }
   }, []);
   return (
     <div className="addPassword">

@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import NavBar from "../../components/navbar/NavBar";
 import "./home.scss";
 import PasswordService from "../../services/passwordService";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Auth from "../auth/Auth";
 function Home() {
   const publicKeyCasting =
@@ -33,22 +33,24 @@ M8LnKm9Rq1KUkvqMFAWN88wSs8l0bgm1aydcONM3FA==\
 -----END RSA PRIVATE KEY-----";
 
   const navigate = useNavigate();
+  const location = useLocation();
   const [isExistVault, setIsExistVault] = useState(null);
-  const navigateToHome = () => {
-    navigate("/createvault");
-  };
 
   useEffect(() => {
-    setIsExistVault(!PasswordService.checkVault());
-  }, []);
-
-  const navigateToPasswords = () => {
-    navigate("/passwords");
-  };
+    if (location.state?.vaultCreated) {
+      setIsExistVault(true);
+    } else {
+      setIsExistVault(!PasswordService.checkVault());
+    }
+  }, [location.state]);
 
   const resetPassword = () => {
     PasswordService.resetVault();
     setIsExistVault(false);
+  };
+
+  const navigateToHome = () => {
+    navigate("/createvault");
   };
 
   const handleImportFileChange = async (e) => {

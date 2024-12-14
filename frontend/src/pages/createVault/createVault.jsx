@@ -2,9 +2,10 @@ import NavBar from "../../components/navbar/NavBar";
 import "./createVault.scss";
 import { useState } from "react";
 import PasswordService from "../../services/passwordService";
-import { Password, Vault } from "../../services/vault";
+import { useNavigate } from "react-router-dom";
 
 function CreateVault() {
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     password: "",
@@ -19,10 +20,11 @@ function CreateVault() {
   };
 
   const handleSubmit = async (e) => {
-    console.log("submitting");
     e.preventDefault();
     PasswordService.createVault(formData.password);
+    navigate("/", { state: { vaultCreated: true } });
   };
+  
 
   return (
     <div className="createVault">
