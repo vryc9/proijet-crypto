@@ -53,11 +53,13 @@ function EditPassword() {
       password: PasswordService.encryptPassword(formData.password),
     };
     let pass = new Password(data.website, data.password, data.username, password.id);
-    console.log(pass);
     PasswordService.editPassword(pass);
   };
 
   useEffect(() => {
+    if(!sessionStorage.getItem('loggedIn')){
+      navigate("/");
+    }
     decryptPassword(id);
   }, []);
   return (

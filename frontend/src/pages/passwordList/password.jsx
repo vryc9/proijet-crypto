@@ -3,7 +3,7 @@ import NavBar from "../../components/navbar/NavBar";
 import PasswordService from "../../services/passwordService";
 import "./password.scss";
 import { useNavigate } from "react-router-dom";
-
+import { useEffect } from "react";
 function Password() {
   const navigate = useNavigate();
   const [decryptedPasswords, setDecryptedPasswords] = useState({});
@@ -59,6 +59,11 @@ function Password() {
       });
   };
 
+  useEffect(() => {
+      if(!sessionStorage.getItem('loggedIn')){
+        navigate("/");
+      }
+  }, []);
   return (
     <div className="password">
       <NavBar></NavBar>

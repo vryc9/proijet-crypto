@@ -30,6 +30,7 @@ const useAuth = () => {
       const { is_valid } = await response.json();
 
       if (is_valid) {
+        sessionStorage.setItem('loggedIn', true);
         navigate("/passwords");
       } else {
         setError(true);

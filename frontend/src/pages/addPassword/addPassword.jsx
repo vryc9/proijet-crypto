@@ -4,7 +4,7 @@ import { useState } from "react";
 import PasswordService from "../../services/passwordService";
 import { Password } from "../../services/vault";
 import { useNavigate } from 'react-router-dom';
-
+import { useEffect } from "react";
 function AddPassword() {
   const navigate = useNavigate(); 
   const [formData, setFormData] = useState({
@@ -29,10 +29,14 @@ function AddPassword() {
       password: PasswordService.encryptPassword(formData.password),
     };
     let pass = new Password(data.website, data.password, data.username);
-    console.log(pass);
     PasswordService.addPasswordToVault(pass);
   };
 
+  useEffect(() => {
+        if(!sessionStorage.getItem('loggedIn')){
+          navigate("/");
+        }
+  }, []);
   return (
     <div className="addPassword">
       <NavBar></NavBar>
