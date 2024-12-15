@@ -54,6 +54,7 @@ function EditPassword() {
     };
     let pass = new Password(data.website, data.password, data.username, password.id);
     PasswordService.editPassword(pass);
+    navigate("/passwords");
   };
 
   useEffect(() => {
