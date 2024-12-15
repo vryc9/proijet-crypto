@@ -68,19 +68,19 @@ function Password() {
     <div className="password">
       <NavBar></NavBar>
       <div className="content">
-        <h1>Liste des mots de passe</h1>
+        <h1>Your passwords</h1>
         <button onClick={downloadPasswordFromVault}>
-          Exporter les mots de passes
+          Export vault
         </button>
         <div className="table">
           <table>
             <thead>
               <tr>
-                <th>Site</th>
-                <th>Nom d'utilisateur</th>
-                <th>Mot de passe</th>
-                <th>Supprimer</th>
-                <th>Modifier</th>
+                <th>Website</th>
+                <th>Username</th>
+                <th>Password</th>
+                <th>Delete</th>
+                <th>Edit</th>
               </tr>
             </thead>
             <tbody>
@@ -93,17 +93,17 @@ function Password() {
                       decryptedPasswords[password.id]
                     ) : (
                       <button onClick={(e) => showPassword(password.id, e)}>
-                        Voir le mot de passe
+                        Show password
                       </button>
                     )}
                   </td>
                   <td>
                     <button onClick={removePassword(password)}>
-                      Supprimer
+                      Delete
                     </button>
                   </td>
                   <td>
-                    <button onClick={editPassword(password)}>Modifier</button>
+                    <button onClick={editPassword(password)}>Edit</button>
                   </td>
                 </tr>
               ))}
@@ -111,7 +111,7 @@ function Password() {
           </table>
         </div>
         <a href="" onClick={navigateCreate}>
-          Ajouter mot de passe
+          Add Password
         </a>
       </div>
     </div>

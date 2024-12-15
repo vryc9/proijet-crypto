@@ -47,6 +47,7 @@ class PasswordService {
 
   static resetVault() {
     localStorage.clear();
+    sessionStorage.clear();
   }
 
   static getPasswordById(id) {
@@ -73,7 +74,6 @@ class PasswordService {
   }
 
   static encryptPassword(password) {
-    console.log(this.publicKeyCasting);
     const publicKey = forge.pki.publicKeyFromPem(this.publicKeyCasting);
     const encrypted = publicKey.encrypt(password, "RSA-OAEP", {
       md: forge.md.sha256.create(),

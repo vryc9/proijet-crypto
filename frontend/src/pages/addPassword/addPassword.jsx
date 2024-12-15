@@ -75,7 +75,7 @@ function AddPassword() {
               />
             </div>
           </div>
-          <button id="log-in-btn">Ajouter</button>
+          <button id="log-in-btn">Add</button>
         </form>
       </div>
     </div>

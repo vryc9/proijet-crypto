@@ -100,7 +100,7 @@ function EditPassword() {
               />
             </div>
           </div>
-          <button id="log-in-btn">Ajouter</button>
+          <button id="log-in-btn">Validate</button>
         </form>
       </div>
     </div>

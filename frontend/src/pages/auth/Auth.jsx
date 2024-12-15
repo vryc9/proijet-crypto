@@ -18,7 +18,7 @@ const Auth = () => {
         <input
           type="password"
           name="password"
-          placeholder="Entrez votre mot de passe"
+          placeholder="Type your password here..."
           value={password}
           onChange={(e) => {
             setPassword(e.target.value);
@@ -27,9 +27,9 @@ const Auth = () => {
           aria-label="Mot de passe"
         />
         <button type="submit" disabled={isLoading}>
-          {isLoading ? "Connexion..." : "Se connecter"}
+          {isLoading ? "Logging In..." : "Log in"}
         </button>
-        {error && <p>Le mot de passe est incorrect</p>}
+        {error && <p>incorrect password</p>}
       </form>
     </div>
   );

@@ -14,8 +14,6 @@ export class Vault{
     removePassword(password){
         let pos = 0;
         for(let pass of this.passwords){
-            console.log(pass)
-            console.log(password);
             if(pass.id == password.id) {
                 this.passwords.pop(pos);
                 return true;
